@@ -1,0 +1,72 @@
+Feature: Add Carrier
+  As a Internal Admin or Carrier Admin user
+  I should be able to Add a Carrier from Settings Carriers Page
+  In order to have more carriers and make more money
+
+  Background:
+    Given I am logged in as an internal admin
+    And I am on the "settings carrier" page
+
+  @pending
+  Scenario: Add a new carrier Pop up is displayed
+    When I follow "Add new"
+    Then I should be on "Add a new carrier" Pop up.
+
+  @pending
+  Scenario: Carrier is Added Successfully
+    When I fill in "Name" with "Carrier1"
+    And I fill in "Operational Name" with "Carrier1"
+    And I fill in "Email" with "abc@abc.com"
+    And I fill in "Operational Work tel" with "44 12345678900"
+    And I fill in "Operational Mobile" with "44 1234567890"
+    And I fill in "Account Name" with "test"
+    And I fill in "Account Email" with "abc@abc.com"
+    And I fill in "Account Work tel" with "44 1234567890"
+    And I fill in "Account Mobile" with "44 123456790"
+    And I fill in "A/C" with "AC"
+    And I fill in "N/C" with "NC"
+    And I fill in "T/C" with "TC"
+    And I press "Update all"
+    Then I should see the confirmation message "Carrier created successfully"
+    And Carrier should be added successfully.
+
+
+  @pending
+  Scenario: A Carrier with the same name can not be added.
+    Given the following Courier exists:
+      | Name     | Operation Name | Email           | Operatiional Work tel | Operatiional Mobile | Account Name | Account Email   | Account  Work tel |  Account Mobile | A/C | N/C | T/C |
+      | Carrier1 | Carrier1       | abc@abc.com | 44 1234567890         | 44 1234567890       | Test         | abc@abc.com | 44 1234567890     |  44 1234567890  | AC  | NC  | TC  |
+    When I fill in "Name" with "Carrier1"
+    And  I fill in "Operational Name" with "Carrier1"
+    And  I fill in "Email" with "abc@abc.com"
+    And  I fill in "Operational Work tel" with "44 12345678900"
+    And  I fill in "Operational Mobile" with "44 1234567890"
+    And  I fill in "Account Name" with "test"
+    And  I fill in "Account Email" with "abc@abc.com"
+    And  I fill in "Account Work tel" with "44 1234567890"
+    And  I fill in "Account Mobile" with "44 123456790"
+    And  I fill in "A/C" with "AC"
+    And  I fill in "N/C" with "NC"
+    And  I fill in "T/C" with "TC"
+    And I press "Update all"
+    Then I should see the message "Name has already been taken"
+    And carrier should not be added.
+
+  @pending
+  Scenario: User try to Add Carrier but skips the mandatory field
+    When I press "update all"
+    Then I should see the message
+    | field                | message                               |
+    | Name                 | Name can not be blank.                |
+    | Email                | Email can not be blank.               |
+    | Operational Name     | Operational Name can not be blank.    |
+    | Operational Work tel | Operational Work Tel can not be blank.|
+    | Operational Mobile   | Operational Mobile can not be blank.  |
+    | Account Name         | Account Name can not be blank.        |
+    | Account Email        | Account Email can not be blank.       |
+    | Account Work tel     | Account Work Tel can not be blank.    |
+    | Account Mobile       | Account Mobile can not be blank.      |
+    | A/C                  | A/C can not be blank.                 |
+    | N/C                  | N/C can not be blank.                 |
+    | T/C                  | T/C can not be blank.                 |
+   And carrier should not be added.
